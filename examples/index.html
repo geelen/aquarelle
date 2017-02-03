@@ -68,21 +68,21 @@
     <div class="fade">
       <img src="img/background.png">
     </div>
-    <!--<img class="Overlay" src="img/foreground-transparent.png">-->
+    <!--<img class="Overlay" src="img/foreground-partial.png">-->
 
     <script>
 
       var fade = document.querySelector('.fade');
 
       var image = document.getElementsByTagName('img')[0];
-      var aquarelle = new Aquarelle(image, 'img/mask3.png', {
+      var aquarelle = new Aquarelle(image, 'img/mask5.png', {
         autoplay: true,
-        loop: true,
+        loop: false,
         duration: 5000,
-        fromOffset: 100,
-        toOffset: 100,
-        fromAmplitude: 50,
-        toAmplitude: 2,
+        fromOffset: -300,
+        toOffset: 1500,
+        fromAmplitude: 20,
+        toAmplitude: 10,
 
         fromFrequency: 5,
         toFrequency: 0,
@@ -99,7 +99,7 @@
         fade.style.opacity = 1;
 
         var canvas = this.getCanvas();
-//        canvas.style.webkitFilter = 'blur(' + this.transitionInRange(0, 24, 3000) + 'px)';
+        canvas.style.webkitFilter = 'blur(' + Math.round(this.transitionInRange(8, 0)) / 2 + 'px)';
         canvas.style.webkitTransform = canvas.style.transform = 'translate(-50%, -50%)';
       });
 

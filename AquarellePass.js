@@ -135,7 +135,7 @@ THREE.AquarellePass = function(texture, mask) {
             'vec2 offset;',
 
             'float noise = snoise(vec3(vUv * Frequency, 0)) * 3.14;',
-            'offset = vec2(cos(noise), sin(noise)) * Amplitude * .001;',
+            'offset = vec2(cos(noise), sin(noise)) * Amplitude * vUv.x * .001;',
 
             'vec4 texture = texture2D(Texture, vUv + offset);',
 
@@ -157,12 +157,16 @@ THREE.AquarellePass = function(texture, mask) {
         transparent: true
     });
 
+    console.log(this.uniforms)
+
     this.needsSwap = false;
 
     this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     this.scene = new THREE.Scene;
 
     this.quad = new THREE.Mesh(new THREE.PlaneBufferGeometry(2, 2));
+    this.quad.material = this.material;
+
     this.scene.add(this.quad);
 };
 
@@ -170,8 +174,6 @@ THREE.AquarellePass.prototype = Object.assign(Object.create(THREE.Pass.prototype
     constructor: THREE.AquarellePass,
 
     render: function(renderer, writeBuffer, readBuffer) {
-        this.quad.material = this.material;
-
         renderer.render(this.scene, this.camera, readBuffer, this.clear);
     }
 });
